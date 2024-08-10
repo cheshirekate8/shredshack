@@ -1,6 +1,6 @@
 <section class="hotspot-banner" style="background-image: url('{{ section.settings.background_image | image_url }}');">
   <div class="hotspot-banner__content hotspot-banner__content--{{ section.settings.text_position }}">
-    <h1>{{ section.settings.title }}</h1>
+    <h1 class="hotspot-banner__title">{{ section.settings.title }}</h1>
     <p>{{ section.settings.description }}</p>
     <a href="{{ section.settings.cta_link }}" class="hotspot-banner__cta">{{ section.settings.cta_text }}</a>
   </div>
@@ -12,7 +12,6 @@
           <img
             src="{{ 'PlusCircleIcon.svg' | asset_url }}"
             alt="Plus Circle Icon"
-            class="icon-class"
           />
         </button>
         <div id="modal-{{ block.id }}" class="hotspot-banner__modal" style="left: {{ block.settings.position_x }}%; top: {{ block.settings.position_y }}%;{% if block.settings.position_x > 50 %} transform: translateX(-100%);{% endif %}{% if block.settings.position_y > 50 %} transform: translateY(-100%);{% endif %}{% if block.settings.position_y > 50 and block.settings.position_x > 50%} transform: translateX(-100%) translateY(-100%);{% endif %}"> 
@@ -21,7 +20,7 @@
             <img src="{{ block.settings.product | img_url: 'small' }}" alt="{{ block.settings.product.title }}" class="hotspot-banner__modal-image" >
             <h3>{{ block.settings.product.title }}</h3>
             <p>{{ block.settings.product.price | money }}</p>
-            <a href="{{ block.settings.product.url }}" class="hotspot-banner__modal-button">View Product</a>
+            <a href="{{ block.settings.product.url }}" class="hotspot-banner__cta">View Product</a>
           </div>
         </div>
       {% endfor %}
@@ -121,7 +120,6 @@
 
   .hotspot-banner__cta {
     display: inline-block;
-    margin-top: 20px;
     padding: 10px 20px;
     background-color: #000;
     color: #fff;
@@ -152,11 +150,6 @@
     padding: 0;
   }
 
-  /* .icon-class {
-    width: 24px;
-    height: 24px;
-  } */
-
   .hotspot-banner__modal {
   display: flex;
   visibility: hidden;
@@ -186,6 +179,46 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .hotspot-banner__hotspots {
+    display: none;
+  }
+
+  .hotspot-banner__title {
+    margin: 0;
+  }
+
+  .hotspot-banner__content--top-left {
+    top: 5%;
+    left: 5%;
+    text-align: left;
+  }
+
+  .hotspot-banner__content--top-right {
+    top: 5%;
+    right: 5%;
+    text-align: right;
+  }
+
+  .hotspot-banner__content--bottom-left {
+    bottom: 5%;
+    left: 5%;
+    text-align: left;
+  }
+
+  .hotspot-banner__content--bottom-right {
+    bottom: 5%;
+    right: 5%;
+    text-align: right;
+  }
+
+  .hotspot-banner__content--center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>
 
