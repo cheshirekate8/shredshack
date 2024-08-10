@@ -14,6 +14,7 @@
             alt="Plus Circle Icon"
           />
         </button>
+        {% comment %} Checking if I broke something {% endcomment %}
         <div id="modal-{{ block.id }}" class="hotspot-banner__modal" style="left: {{ block.settings.position_x }}%; top: {{ block.settings.position_y }}%;{% if block.settings.position_x > 50 %} transform: translateX(-100%);{% endif %}{% if block.settings.position_y > 50 %} transform: translateY(-100%);{% endif %}{% if block.settings.position_y > 50 and block.settings.position_x > 50%} transform: translateX(-100%) translateY(-100%);{% endif %}"> 
           <div class="hotspot-banner__modal-content">
             <button class="hotspot-banner__modal-close" data-close-modal>&times;</button>
