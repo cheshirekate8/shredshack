@@ -1,0 +1,282 @@
+<section class="hotspot-banner" style="background-image: url('{{ section.settings.background_image | image_url }}');">
+  <div class="hotspot-banner__content hotspot-banner__content--{{ section.settings.text_position }}">
+    <h1>{{ section.settings.title }}</h1>
+    <p>{{ section.settings.description }}</p>
+    <a href="{{ section.settings.cta_link }}" class="hotspot-banner__cta">{{ section.settings.cta_text }}</a>
+  </div>
+    <div class="hotspot-banner__hotspots">
+      {% for block in section.blocks %}
+        <button class="hotspot-banner__hotspot" 
+          data-modal-id="modal-{{ block.id }}" 
+          style="left: {{ block.settings.position_x }}%; top: {{ block.settings.position_y }}%;">
+          <img
+            src="{{ 'PlusCircleIcon.svg' | asset_url }}"
+            alt="Plus Circle Icon"
+            class="icon-class"
+          />
+        </button>
+        <div id="modal-{{ block.id }}" class="hotspot-banner__modal" style="left: {{ block.settings.position_x }}%; top: {{ block.settings.position_y }}%;{% if block.settings.position_x > 50 %} transform: translateX(-100%);{% endif %}{% if block.settings.position_y > 50 %} transform: translateY(-100%);{% endif %}{% if block.settings.position_y > 50 and block.settings.position_x > 50%} transform: translateX(-100%) translateY(-100%);{% endif %}"> 
+          <div class="hotspot-banner__modal-content">
+            <button class="hotspot-banner__modal-close" data-close-modal>&times;</button>
+            <img src="{{ block.settings.product | img_url: 'small' }}" alt="{{ block.settings.product.title }}" class="hotspot-banner__modal-image" >
+            <h3>{{ block.settings.product.title }}</h3>
+            <p>{{ block.settings.product.price | money }}</p>
+            <a href="{{ block.settings.product.url }}" class="hotspot-banner__modal-button">View Product</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const hotspots = document.querySelectorAll('.hotspot-banner__hotspot');
+    const modals = document.querySelectorAll('.hotspot-banner__modal');
+
+    hotspots.forEach(hotspot => {
+      const modalId = hotspot.getAttribute('data-modal-id');
+      const modal = document.getElementById(modalId);
+
+      hotspot.addEventListener('mouseenter', () => {
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
+      });
+      hotspot.addEventListener('mouseleave', () => {
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0';
+      });
+
+    });
+
+    modals.forEach(modal => {
+      const closeBtn = modal.querySelector('[data-close-modal]');
+      
+      closeBtn.addEventListener('click', () => {
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0';
+      });
+
+      modal.addEventListener('mouseenter', (e) => {
+        if (e.target === modal) {
+          modal.style.visibility = 'visible';
+          modal.style.opacity = '1';
+        }
+      });
+      modal.addEventListener('mouseleave', (e) => {
+        if (e.target === modal) {
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0'
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .hotspot-banner {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hotspot-banner__content {
+    position: absolute;
+    max-width: 40%;
+  }
+
+  .hotspot-banner__content--top-left {
+    top: 10%;
+    left: 10%;
+    text-align: left;
+  }
+
+  .hotspot-banner__content--top-right {
+    top: 10%;
+    right: 10%;
+    text-align: right;
+  }
+
+  .hotspot-banner__content--bottom-left {
+    bottom: 10%;
+    left: 10%;
+    text-align: left;
+  }
+
+  .hotspot-banner__content--bottom-right {
+    bottom: 10%;
+    right: 10%;
+    text-align: right;
+  }
+
+  .hotspot-banner__content--center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hotspot-banner__cta {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .hotspot-banner__hotspots {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .hotspot-banner__hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  /* .icon-class {
+    width: 24px;
+    height: 24px;
+  } */
+
+  .hotspot-banner__modal {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  }
+  
+  .hotspot-banner__modal-content {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  width: 300px;
+}
+
+.hotspot-banner__modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+</style>
+
+{% schema %}
+  {
+    "name": "Hotspot Banner",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link"
+      }, {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      }, {
+        "type": "select",
+        "id": "text_position",
+        "label": "Text Position",
+        "options": [
+          {
+            "value": "top-left",
+            "label": "Top Left"
+          },
+          {
+            "value": "top-right",
+            "label": "Top Right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom Left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom Right"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "type": "hotspot",
+        "name": "Hotspot",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          }, {
+            "type": "range",
+            "id": "position_x",
+            "label": "Position X",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 50
+          }, {
+            "type": "range",
+            "id": "position_y",
+            "label": "Position Y",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 50
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hotspot Banner",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}
