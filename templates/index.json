@@ -91,17 +91,17 @@
         "hotspot_7dp3YH": {
           "type": "hotspot",
           "settings": {
-            "product": "",
-            "position_x": 50,
-            "position_y": 50
+            "product": "the-3p-fulfilled-snowboard",
+            "position_x": 22,
+            "position_y": 43
           }
         },
         "hotspot_rR7kyE": {
           "type": "hotspot",
           "settings": {
-            "product": "",
-            "position_x": 50,
-            "position_y": 50
+            "product": "gift-card",
+            "position_x": 75,
+            "position_y": 85
           }
         }
       },
