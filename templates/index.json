@@ -79,6 +79,37 @@
     },
     "hotspot_banner_J88Km4": {
       "type": "hotspot-banner",
+      "blocks": {
+        "hotspot_XPNfkd": {
+          "type": "hotspot",
+          "settings": {
+            "product": "the-multi-managed-snowboard",
+            "position_x": 15,
+            "position_y": 90
+          }
+        },
+        "hotspot_7dp3YH": {
+          "type": "hotspot",
+          "settings": {
+            "product": "",
+            "position_x": 50,
+            "position_y": 50
+          }
+        },
+        "hotspot_rR7kyE": {
+          "type": "hotspot",
+          "settings": {
+            "product": "",
+            "position_x": 50,
+            "position_y": 50
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_XPNfkd",
+        "hotspot_7dp3YH",
+        "hotspot_rR7kyE"
+      ],
       "settings": {
         "background_image": "shopify:\/\/shop_images\/snow-boarder-on-snowy-mountain.jpg",
         "title": "Lorem ipsum",
