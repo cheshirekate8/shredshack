@@ -1,0 +1,96 @@
+<div id="modal-{{ id }}" class="modal"
+  style="left: {{ posX }}%; top: {{ posY }}%;{% if posX > 50 %} transform: translateX(-100%);{% endif %}{% if posY > 50 %} transform: translateY(-100%);{% endif %}{% if posY > 50 and posX > 50%} transform: translateX(-100%) translateY(-100%);{% endif %}">
+  <div class="modal-content">
+    <button class="modal-close" data-close-modal>&times;</button>
+    <img src="{{ product | img_url: 'small' }}" alt="{{ product.title }}" class="modal-image">
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.price | money }}</p>
+    <a href="{{ product.url }}" class="cta">View Product</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hotspots = document.querySelectorAll('.hotspot-banner__hotspot');
+    const modals = document.querySelectorAll('.modal');
+
+    hotspots.forEach(hotspot => {
+      const modalId = hotspot.getAttribute('data-modal-id');
+      const modal = document.getElementById(modalId);
+
+      hotspot.addEventListener('mouseenter', () => {
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
+      });
+      hotspot.addEventListener('mouseleave', () => {
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0';
+      });
+
+    });
+
+    modals.forEach(modal => {
+      const closeBtn = modal.querySelector('[data-close-modal]');
+
+      closeBtn.addEventListener('click', () => {
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0';
+      });
+
+      modal.addEventListener('mouseenter', (e) => {
+        if (e.target === modal) {
+          modal.style.visibility = 'visible';
+          modal.style.opacity = '1';
+        }
+      });
+      modal.addEventListener('mouseleave', (e) => {
+        if (e.target === modal) {
+          modal.style.visibility = 'hidden';
+          modal.style.opacity = '0'
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .modal {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .modal-content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+</style>
