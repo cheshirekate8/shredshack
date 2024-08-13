@@ -1,28 +1,24 @@
 <section class="hotspot-banner" style="background-image: url('{{ section.settings.background_image | image_url }}');">
+  <div class="hotspot-banner__hotspots">
+    {% for block in section.blocks %}
+    <button class="hotspot-banner__hotspot" data-modal-id="modal-{{ block.id }}"
+      style="left: {{ block.settings.position_x }}%; top: {{ block.settings.position_y }}%;">
+      <img src="{{ 'PlusCircleIcon.svg' | asset_url }}" alt="Plus Circle Icon" />
+    </button>
+    {% render 'hover-modal.liquid',
+    posX: block.settings.position_x,
+    posY: block.settings.position_y,
+    product: block.settings.product,
+    param: value,
+    id: block.id
+    %}
+    {% endfor %}
+  </div>
   <div class="hotspot-banner__content hotspot-banner__content--{{ section.settings.text_position }}">
     <h1 class="hotspot-banner__title">{{ section.settings.title }}</h1>
     <p>{{ section.settings.description }}</p>
     <a href="{{ section.settings.cta_link }}" class="hotspot-banner__cta">{{ section.settings.cta_text }}</a>
   </div>
-    <div class="hotspot-banner__hotspots">
-      {% for block in section.blocks %}
-        <button class="hotspot-banner__hotspot" 
-          data-modal-id="modal-{{ block.id }}" 
-          style="left: {{ block.settings.position_x }}%; top: {{ block.settings.position_y }}%;">
-          <img
-            src="{{ 'PlusCircleIcon.svg' | asset_url }}"
-            alt="Plus Circle Icon"
-          />
-        </button>
-        {% render 'hover-modal.liquid', 
-          posX: block.settings.position_x,
-          posY: block.settings.position_y,
-          product: block.settings.product,
-          param: value,
-          id: block.id
-         %}
-      {% endfor %}
-    </div>
 </section>
 
 <style>
