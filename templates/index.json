@@ -84,8 +84,8 @@
           "type": "hotspot",
           "settings": {
             "product": "the-multi-managed-snowboard",
-            "position_x": 15,
-            "position_y": 90
+            "position_x": 50,
+            "position_y": 15
           }
         },
         "hotspot_7dp3YH": {
